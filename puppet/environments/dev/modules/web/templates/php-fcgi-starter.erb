@@ -1,0 +1,18 @@
+#!/bin/sh
+PHPRC="/etc/php5/cgi/"
+export PHPRC
+PHP_DOCUMENT_ROOT="<%= @apache_docroot %>"
+export PHP_DOCUMENT_ROOT
+# The variable PHP_FCGI_CHILDREN is onyl useful for lighty or nginx as apache 
+# mod_fcgi will control the number of childs themself and never use the additional processes.
+# PHP_FCGI_CHILDREN=8
+# export PHP_FCGI_CHILDREN
+PHP_FCGI_MAX_REQUESTS=5000
+export PHP_FCGI_MAX_REQUESTS
+exec /usr/bin/php-cgi \
+ -d open_basedir="/usr/share/php:/usr/share/php5:/tmp:<%= @apache_docroot %>:<%= @php_tmpdir %>" \
+ -d upload_tmp_dir=<%= @php_tmpdir %> \
+ -d session.save_path=<%= @php_tmpdir %> \
+ -d sendmail_path="/usr/sbin/sendmail -t -i -f<%= @email %>" \
+  $1
+

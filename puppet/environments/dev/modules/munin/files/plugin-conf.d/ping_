@@ -1,0 +1,19 @@
+[ping_*]
+#env.ping_warning 0.030
+#env.ping_critical 0:0.100
+#env.packetloss_warning 1
+#env.packetloss_critical 10
+env.ping_warning 0.100
+env.ping_critical 0:1.000
+env.packetloss_warning 10
+env.packetloss_critical 50
+
+[ping6_*]
+#env.ping_warning 0.030
+#env.ping_critical 0:0.100
+#env.packetloss_warning 1
+#env.packetloss_critical 10
+env.ping_warning 0.100
+env.ping_critical 0:1.000
+env.packetloss_warning 10
+env.packetloss_critical 50

@@ -1,0 +1,7 @@
+net.ipv6.conf.all.autoconf = 0
+net.ipv6.conf.default.autoconf = 0
+net.ipv6.conf.eth0.autoconf = 0
+net.ipv6.conf.lo.autoconf = 0
+<% if datacenter_owner == 'online' %>
+net.ipv6.conf.eth0.disable_ipv6 = 1
+<% end %>

@@ -1,0 +1,18 @@
+zone "phpmyadmin.tobehost.net" {
+        type master;
+        allow-transfer {none;};
+        file "/etc/bind/zones.tobehost/pri.phpmyadmin";
+};
+
+zone "tobehost.net" {
+        type master;
+        allow-transfer {none;};
+        file "/etc/bind/zones.tobehost/pri.eleves";
+};
+
+#zone "webftp.tobehost.net" {
+#        type master;
+#        allow-transfer {none;};
+#        file "/etc/bind/zones.tobehost/pri.webftp";
+#};
+

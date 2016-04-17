@@ -1,0 +1,20 @@
+[mysqld]
+
+innodb_buffer_pool_size = 3G
+
+key_buffer_size = 128M 
+read_buffer_size = 4M
+sort_buffer_size = 4M
+join_buffer_size = 4M
+
+thread_stack = 128K
+thread_cache_size = 8
+
+query_cache_limit = 4M
+query_cache_size = 512M
+
+table_cache = 4096
+
+tmp_table_size = 256M 
+max_heap_table_size = 256M 
+

@@ -1,0 +1,9 @@
+---
+:backends:
+  - json
+  - multijson
+:json:
+ :datadir: "/etc/puppet/hieradata"
+:multijson:
+ :datadir: "/etc/puppet/hieradata"
+:hierarchy:

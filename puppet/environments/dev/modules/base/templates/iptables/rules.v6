@@ -1,0 +1,10 @@
+-A INPUT -i lo -p tcp --dport 3306 -j ACCEPT
+-A INPUT -i eth0 -p tcp --dport 3306 -s <%= @nagios_cidr_allow_ipv4 %>  -j ACCEPT
+-A INPUT -p tcp --dport 3306 -j DROP
+
+-A INPUT -i eth0 -p tcp --dport 4949 -s <%= @munin_cidr_allow_ipv4 %>  -j ACCEPT
+-A INPUT -p tcp --dport 4949 -j DROP
+
+-A INPUT -i eth0 -p tcp --dport 5666 -s <%= @nagios_cidr_allow_ipv4 %>  -j ACCEPT
+-A INPUT -p tcp --dport 5666 -j DROP
+
