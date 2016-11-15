@@ -1,0 +1,15 @@
+name = TBH SQL (MariaDB)
+core = 7.x
+package = TBH
+dependencies[] = eck
+dependencies[] = features
+dependencies[] = list
+dependencies[] = options
+features[eck_bundle][] = tbh_services_tbh_sql_mariadb
+features[features_api][] = api:2
+features[user_permission][] = eck add tbh_services tbh_sql_mariadb entities
+features[user_permission][] = eck administer tbh_services tbh_sql_mariadb entities
+features[user_permission][] = eck delete tbh_services tbh_sql_mariadb entities
+features[user_permission][] = eck edit tbh_services tbh_sql_mariadb entities
+features[user_permission][] = eck list tbh_services tbh_sql_mariadb entities
+features[user_permission][] = eck view tbh_services tbh_sql_mariadb entities

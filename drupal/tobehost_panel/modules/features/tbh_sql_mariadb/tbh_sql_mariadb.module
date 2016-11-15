@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the TBH SQL (MariaDB) feature.
+ */
+
+include_once 'tbh_sql_mariadb.features.inc';

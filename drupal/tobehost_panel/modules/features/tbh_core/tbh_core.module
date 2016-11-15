@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the TBH Core feature.
+ */
+
+include_once 'tbh_core.features.inc';

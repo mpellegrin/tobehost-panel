@@ -1,0 +1,17 @@
+name = TBH Panel
+description = ToBeHost Panel
+version = 1.0
+core = 7.x
+dependencies[] = block
+dependencies[] = dblog
+
+# Pre-features required modules
+dependencies[] = module_filter
+dependencies[] = adminimal_admin_menu
+dependencies[] = features
+
+# Enabled Features
+dependencies[] = tbh_core
+dependencies[] = tbh_sql_mariadb
+dependencies[] = tbh_web_apache
+
