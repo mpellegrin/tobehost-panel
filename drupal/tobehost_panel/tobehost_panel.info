@@ -2,6 +2,11 @@ name = TBH Panel
 description = ToBeHost Panel
 version = 1.0
 core = 7.x
+
+; Default profile for installation
+exclusive = true
+
+; Default modules
 dependencies[] = block
 dependencies[] = dblog
 
