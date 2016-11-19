@@ -23,7 +23,7 @@ function tobehost_panel_install() {
   theme_enable($themes);
 
   // Set Bootstrap and Adminimal as default
-  foreach ($themes as $keyr => $theme) {
+  foreach ($themes as $key => $theme) {
     if (!is_numeric($key)) {
       variable_set($key, $theme);
     }
