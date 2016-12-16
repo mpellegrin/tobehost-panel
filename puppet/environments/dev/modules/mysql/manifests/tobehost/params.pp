@@ -1,2 +1,0 @@
-class mysql::tobehost::params {
-}

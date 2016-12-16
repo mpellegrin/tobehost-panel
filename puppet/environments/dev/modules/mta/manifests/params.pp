@@ -1,2 +1,0 @@
-class mta::params {
-}

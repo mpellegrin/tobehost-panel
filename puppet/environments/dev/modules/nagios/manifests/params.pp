@@ -1,2 +1,0 @@
-class nagios::params {
-}

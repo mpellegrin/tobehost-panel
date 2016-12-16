@@ -1,7 +1,0 @@
-#
-# <%= @hostname %>
-#
-# <%= (@network['eth0'] == nil || @network['eth0']['ipv4'] == nil || @network['eth0']['ipv4']['address'] == nil) ? '' : @network['eth0']['ipv4']['address'] %>
-# <%= (@network['eth0'] == nil || @network['eth0']['ipv6'] == nil || @network['eth0']['ipv6']['address'] == nil) ? '' : @network['eth0']['ipv6']['address'] %>
-#
-
