@@ -30,6 +30,10 @@ projects:
     subdir: contrib
   field_validation:
     subdir: contrib
+  fpa:
+    subdir: contrib
+  module_filter:
+    subdir: contrib
   override_node_options:
     subdir: contrib
   rules:
