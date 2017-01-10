@@ -2,7 +2,7 @@
 The project of an opensource web panel, designed for free web hosting
 
 ## History
-The ToBeHost project is lasting since approximately ten years. At that time, the project is quite dead, sleeping in onea virtual machine, waiting for some spare time from one of its admins.
+The ToBeHost project is lasting since approximately ten years. At that time, the project is quite dead, sleeping in a virtual machine, waiting for some spare time from one of its admins.
 
 While making ToBeHost, we tried many web panels, and the last we are still using is VHFFS. This panel covers our needs, and even if we learned a lot using it, many cutting edges made us (the admins) frustrated :
  * We are not fluent in Perl and therefore we hardly understand all the logic behind the API and source code of VHFFS ;
@@ -18,7 +18,7 @@ While great ideas are already implemented in VHFFS, VHFFS is simply "too awesome
 
 So, let's reboot this. Make a web panel with a CMS (Drupal), default Debian packages, and a configuration management (Puppet), for an end-to-end ease of use and administration.
 
-Let's do make what panels like ISPConfig of Vitualmin do, but simpler, adapted to a moderation workflow, and easy to install.
+Let's do make what panels like ISPConfig or Vitualmin do, but simpler, adapted to a moderation workflow, and easy to install.
 
 ## What this repository will contain
 
