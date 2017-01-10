@@ -5,6 +5,13 @@
  */
 
 /**
+ * Implements hook_views_api().
+ */
+function tbh_web_apache_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
  * Implements hook_eck_bundle_info().
  */
 function tbh_web_apache_eck_bundle_info() {

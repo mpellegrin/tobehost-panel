@@ -11,10 +11,9 @@ dependencies[] = block
 dependencies[] = dblog
 
 # Pre-features required modules
-dependencies[] = adminimal_admin_menu
 dependencies[] = module_filter
+dependencies[] = adminimal_admin_menu
 dependencies[] = features
-dependencies[] = fpa
 
 # Enabled Features
 dependencies[] = tbh_core

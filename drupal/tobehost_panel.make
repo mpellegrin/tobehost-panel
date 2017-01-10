@@ -20,9 +20,15 @@ projects:
     subdir: contrib
   ctools:
     subdir: contrib
+  devel:
+    subdir: contrib
+  diff:
+    subdir: contrib
   eck:
     subdir: contrib
   entity:
+    subdir: contrib
+  entitycache:
     subdir: contrib
   features:
     subdir: contrib
