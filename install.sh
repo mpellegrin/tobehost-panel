@@ -22,6 +22,8 @@ rsync -av --delete puppet/* /etc/puppet/
 chown -R root:puppet /etc/puppet/
 HOSTNAME=`hostname -f`
 sed -i "s/_HOSTNAME_/$HOSTNAME/" /etc/puppet/puppet.conf
+cp /etc/puppet/environments/production/manifests/site.pp.dist /etc/puppet/environments/production/manifests/site.pp
+sed -i "s/_HOSTNAME_/$HOSTNAME/" /etc/puppet/environments/production/manifests/site.pp
 puppet agent --test
 
 # Permissions fix

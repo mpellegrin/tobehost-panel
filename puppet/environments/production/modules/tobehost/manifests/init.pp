@@ -1,5 +1,5 @@
 class tobehost (
 
-) inherits tobehost {
+) {
 
 }

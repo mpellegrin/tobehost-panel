@@ -1,60 +1,20 @@
-node 'tobehost.net' {
+node '_HOSTNAME_' {
 
-	$datacenter_owner = '' # ovh, online, or empty
+	$hostname = '_HOSTNAME_'
 
-	$hostname = 'example.com' # tobehost.net
-	$shortname = 'example' # tobehost
-	$munin_tls = true
-
-	$munin_regex_allow_ipv4= '^xx\.xx\.xx\.xx$'
-	$munin_cidr_allow_ipv4= 'xx.xx.xx.xx/32'
-	$munin_regex_allow_ipv6= '^2001:xxxx:xxxx:xxxx::xxxx$'
-	$munin_cidr_allow_ipv6= '2001:xxxx:xxxx:xxxx::xxxx/128'
-
-	$nagios_cidr_allow_ipv4= 'xx.xx.xx.xx/32'
-	$nagios_cidr_allow_ipv6= '2001:xxxx:xxxx:xxxx::xxxx/128'
-
-	$mysql_admin_login = 'tobehost_admin'
-	$mysql_admin_password = 'xxxx'
-
-	$network = {
-		'eth0' => {
-			'ipv4' => {
-				'address'   => 'xx.xx.xx.xx',
-			},
-
-			'ipv6' => {
-				'address'   => '2001:xxxx:xxxx:xxxx::xxxx',
-			},
-		},
+	class {'tobehost-base':
 	}
 
-	class {'base':
+	class {'tobehost-users':
 	}
 
-	class {'users':
+	class {'tobehost-web':
 	}
 
-	class {'nagios':
+	class {'tobehost-mysql':
 	}
 
-	class {'munin':
-		tls => $munin_tls,
-	}
-
-	class {'mta':
-	}
-
-	class {'mysql':
-	}
-
-	class {'web':
-	}
-
-	class {'ftp':
-	}
-
-	class {'dns':
+	class {'tobehost-ftp':
 	}
 
 }
