@@ -5,6 +5,7 @@ package = TBH
 dependencies[] = devel
 dependencies[] = diff
 dependencies[] = field_ui
+dependencies[] = field_validation_ui
 dependencies[] = tbh_core
 dependencies[] = views_ui
 features[features_api][] = api:2

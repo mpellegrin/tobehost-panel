@@ -1,4 +1,4 @@
-class tobehost::web::services inherits tobehost::tobehost::web {
+class tobehost::web::services inherits tobehost::web {
 
 	# Apache
 	service { 'apache2':

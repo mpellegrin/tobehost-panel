@@ -1,4 +1,4 @@
-class web (
+class tobehost::web (
 
 ) inherits tobehost {
 

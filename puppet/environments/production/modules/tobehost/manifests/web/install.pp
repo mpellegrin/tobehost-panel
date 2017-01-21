@@ -1,4 +1,4 @@
-class tobehost::web::install inherits tobehost::tobehost::web {
+class tobehost::web::install inherits tobehost::web {
 
 
 	package {'phpmyadmin':

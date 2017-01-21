@@ -11,5 +11,4 @@ class tobehost::mysql::install inherits tobehost::mysql {
 		ensure => 'present',
 	}
 
-
 }

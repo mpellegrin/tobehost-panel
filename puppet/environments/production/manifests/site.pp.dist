@@ -2,19 +2,16 @@ node '_HOSTNAME_' {
 
 	$hostname = '_HOSTNAME_'
 
-	class {'tobehost-base':
+	class {'tobehost::base':
 	}
 
-	class {'tobehost-users':
+	class {'tobehost::web':
 	}
 
-	class {'tobehost-web':
+	class {'tobehost::mysql':
 	}
 
-	class {'tobehost-mysql':
-	}
-
-	class {'tobehost-ftp':
+	class {'tobehost::ftp':
 	}
 
 }

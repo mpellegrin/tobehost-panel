@@ -18,12 +18,12 @@ $view = 'tbh_puppet_sql';
 $items = views_json_get($view);
 foreach ($items->nodes as $item) {
 	$hiera_data = json_encode($item->node, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
-	file_put_contents('/etc/puppet/hieradata/production/sql-active/' . $item->node->id . '.json', $hiera_data);
+	file_put_contents('/etc/puppet/hieradata/production/sql-active/' . $item->node->entity_id . '.json', $hiera_data);
 }
 
 $view = 'tbh_puppet_web';
 $items = views_json_get($view);
 foreach ($items->nodes as $item) {
 	$hiera_data = json_encode($item->node, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
-	file_put_contents('/etc/puppet/hieradata/production/web-active/' . $item->node->id . '.json', $hiera_data);
+	file_put_contents('/etc/puppet/hieradata/production/web-active/' . $item->node->entity_id . '.json', $hiera_data);
 }

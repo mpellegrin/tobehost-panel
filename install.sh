@@ -4,7 +4,7 @@ set -e
 apt-get update
 
 # Puppet and dependencies
-apt-get install puppet puppetmaster puppet-module-puppetlabs-concat puppet-module-puppetlabs-mysql hiera
+apt-get install puppet puppetmaster hiera
 
 # Prompts MySQL root password to user
 apt-get install mariadb-client mariadb-server

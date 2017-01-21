@@ -33,9 +33,6 @@ class tobehost::base::install inherits tobehost::base {
 	package {'iftop':
 		ensure => 'present',
 	}
-	package {'screen':
-		ensure => 'present',
-	}
 	package {'less':
 		ensure => 'present',
 	}
@@ -49,9 +46,6 @@ class tobehost::base::install inherits tobehost::base {
 		ensure => 'present',
 	}
 	package {'wget':
-		ensure => 'present',
-	}
-	package {'iptables-persistent':
 		ensure => 'present',
 	}
 }

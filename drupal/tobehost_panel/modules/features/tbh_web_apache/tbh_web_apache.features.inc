@@ -5,6 +5,15 @@
  */
 
 /**
+ * Implements hook_ctools_plugin_api().
+ */
+function tbh_web_apache_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "field_validation" && $api == "default_field_validation_rules") {
+    return array("version" => "2");
+  }
+}
+
+/**
  * Implements hook_views_api().
  */
 function tbh_web_apache_views_api($module = NULL, $api = NULL) {
