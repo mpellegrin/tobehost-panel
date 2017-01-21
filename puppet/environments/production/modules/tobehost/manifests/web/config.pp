@@ -6,7 +6,7 @@ class tobehost::web::config inherits tobehost::web {
 		group  => '0',
 		owner  => '0',
 		notify => Service['apache2'],
-		source => 'puppet:///modules/web/apache/mods-available/fcgid.conf',
+		source => 'puppet:///modules/tobehost/web/apache/mods-available/fcgid.conf',
 	}
 
 	file {'/etc/php5/cgi/php.ini':
@@ -15,7 +15,7 @@ class tobehost::web::config inherits tobehost::web {
 		group  => '0',
 		owner  => '0',
 		notify => Service['apache2'],
-		source => 'puppet:///modules/web/php/cgi/php.ini',
+		source => 'puppet:///modules/tobehost/web/php/cgi/php.ini',
 	}
 
 	file { '/etc/apache2/sites-available/default.conf':
@@ -24,7 +24,7 @@ class tobehost::web::config inherits tobehost::web {
 		group  => '0',
 		owner  => '0',
 		notify => Service['apache2'],
-		source => 'puppet:///modules/web/apache/sites-available/default.conf',
+		source => 'puppet:///modules/tobehost/web/apache/sites-available/default.conf',
 	}
 
 	file { '/etc/apache2/sites-enabled/000-default.conf':
@@ -167,7 +167,7 @@ class tobehost::web::config inherits tobehost::web {
 #		group  => '0',
 #		mode   => '644',
 #		owner  => '0',
-#		source => 'puppet:///modules/web/apache/mods-available/ssl.conf',
+#		source => 'puppet:///modules/tobehost/web/apache/mods-available/ssl.conf',
 #		notify => Service['apache2'],
 #	}
 
@@ -226,7 +226,7 @@ class tobehost::web::config inherits tobehost::web {
 		group  => '0',
 		owner  => '0',
 		mode   => '644',
-		source => 'puppet:///modules/web/apache/default-index.html',
+		source => 'puppet:///modules/tobehost/web/apache/default-index.html',
 		notify => Service['apache2'],
 	}
 
@@ -261,7 +261,7 @@ class tobehost::web::config inherits tobehost::web {
 		owner  => '0',
 		group  => '0',
 		mode   => '644',
-		source => 'puppet:///modules/web/apache/sites-available/phpmyadmin.conf',
+		source => 'puppet:///modules/tobehost/web/apache/sites-available/phpmyadmin.conf',
 		notify => Service['apache2'],
 	}
 	file {'/etc/apache2/sites-enabled/010-phpmyadmin.conf':
@@ -281,7 +281,7 @@ class tobehost::web::config inherits tobehost::web {
 		owner => 'phpmyadmin',
 		group => 'phpmyadmin',
 		mode   => '755',
-		source => 'puppet:///modules/web/phpmyadmin/php-fcgi-starter',
+		source => 'puppet:///modules/tobehost/web/phpmyadmin/php-fcgi-starter',
 		notify => Service['apache2'],
 	}
 	file {'/etc/phpmyadmin/conf.d/tobehost.inc.php':
@@ -289,7 +289,7 @@ class tobehost::web::config inherits tobehost::web {
 		owner => 'root',
 		group => 'www-data',
 		mode   => '644',
-		source => 'puppet:///modules/web/phpmyadmin/config-local.inc.php',
+		source => 'puppet:///modules/tobehost/web/phpmyadmin/config-local.inc.php',
 		notify => Service['apache2'],
 	}
 	file {'/var/lib/phpmyadmin/tmp':
@@ -306,7 +306,7 @@ class tobehost::web::config inherits tobehost::web {
 		owner => 'root',
 		group => 'tobehost_panel',
 		mode => 750,
-		#source => 'puppet:///modules/web/tobehost_panel/share/',
+		#source => 'puppet:///modules/tobehost/web/tobehost_panel/share/',
 		#recurse => true,
 		#purge => true,
 		#force => true,
@@ -316,7 +316,7 @@ class tobehost::web::config inherits tobehost::web {
 
 	file { "/etc/apache2/sites-available/tobehost_panel.conf":
 		ensure => 'file',
-		source => 'puppet:///modules/web/apache/sites-available/tobehost_panel.conf',
+		source => 'puppet:///modules/tobehost/web/apache/sites-available/tobehost_panel.conf',
 		notify => Service['apache2'],
 		owner => 'root',
 		group => 'root',
@@ -342,7 +342,7 @@ class tobehost::web::config inherits tobehost::web {
 		owner => 'tobehost_panel',
 		group => 'tobehost_panel',
 		mode => '550',
-		source => 'puppet:///modules/web/tobehost_panel/php-fcgi-starter',
+		source => 'puppet:///modules/tobehost/web/tobehost_panel/php-fcgi-starter',
 		require => User['tobehost_panel'],
 	}
 
@@ -351,6 +351,7 @@ class tobehost::web::config inherits tobehost::web {
 	define tobehost_apache_enable($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
 
 		$domain_name = "${tbh_web_id}.${hostname}"
+		$domain_docroot = "/data/web/${domain_name}"
 		$apache_docroot = "/data/web/${domain_name}/www"
 		$apache_logdir = "/data/web/${domain_name}/logs"
 		$php_tmpdir = "/data/web/${domain_name}/tmp"
@@ -358,9 +359,16 @@ class tobehost::web::config inherits tobehost::web {
 		$apache_suexec_user = "${entity_id}_${tbh_web_id}"
 		$apache_suexec_group = "${entity_id}_${tbh_web_id}"
 
+		file { $domain_docroot:
+			ensure => 'directory',
+			owner  => 'root',
+			group  => 'www-data',
+			mode   => '550',
+		}
+
 		file { "/etc/apache2/sites-available/${domain_name}.conf":
 			ensure => 'file',
-			content => template('web/apache_user_vhost_enabled.conf.erb'),
+			content => template('tobehost/web/apache_user_vhost_enabled.conf.erb'),
 			#require => User[$unix_username],
 			#require => [User[$unix_username], File["/data/web/${domain_name}"]],
 			require => File["/data/web/${domain_name}"],
@@ -422,13 +430,14 @@ class tobehost::web::config inherits tobehost::web {
 				owner => $apache_suexec_user,
 				group => $apache_suexec_group,
 				mode => '550',
-				content => template('web/php-fcgi-starter.erb'),
+				content => template('tobehost/web/php-fcgi-starter.erb'),
 				#require => User[$unix_username],
 				#require => [User[$unix_username], File["/data/web/${domain_name}"]],
 				require => File["/data/web/${domain_name}"],
 			}
 		}
 
+		/*
 		file { "/data/home/$unix_username/$domain_name":
 			ensure => 'link',
 			owner => 'root',
@@ -439,6 +448,7 @@ class tobehost::web::config inherits tobehost::web {
 			#require => [User[$unix_username], File["/data/web/${domain_name}"]],
 			require => [File["/data/home/${unix_username}"], File["/data/web/${domain_name}"]],
 		}
+		*/
 	}
 
 	define tobehost_apache_disable($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
@@ -451,9 +461,16 @@ class tobehost::web::config inherits tobehost::web {
 		$apache_suexec_user = "${entity_id}_${tbh_web_id}"
 		$apache_suexec_group = "${entity_id}_${tbh_web_id}"
 
+		file { $domain_docroot:
+			ensure => 'directory',
+			owner  => 'root',
+			group  => 'www-data',
+			mode   => '550',
+		}
+
 		file { "/etc/apache2/sites-available/${domain_name}.conf":
 			ensure => 'file',
-			content => template('web/apache_user_vhost_disabled.conf.erb'),
+			content => template('tobehost/web/apache_user_vhost_disabled.conf.erb'),
 			require => User[$unix_username],
 			notify => Service['apache2'],
 		}
@@ -502,14 +519,16 @@ class tobehost::web::config inherits tobehost::web {
 			owner => $apache_suexec_user,
 			group => $apache_suexec_group,
 			mode => '550',
-			content => template('web/php-fcgi-starter.erb'),
+			content => template('tobehost/web/php-fcgi-starter.erb'),
 			require => User[$unix_username],
 		}
 
+		/*
 		file { "/data/home/$unix_username/$domain_name":
 			ensure => 'absent',
 			require => [File["/data/home/${unix_username}"], File["/data/web/${domain_name}"]],
 		}
+		*/
 	}
 
 	define tobehost_apache_delete($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
@@ -532,6 +551,10 @@ class tobehost::web::config inherits tobehost::web {
 			notify => Service['apache2'],
 		}
 
+		file { $domain_docroot:
+			ensure => 'absent',
+		}
+
 		file { $apache_docroot:
 			ensure => 'absent',
 		}
@@ -552,9 +575,11 @@ class tobehost::web::config inherits tobehost::web {
 			ensure => 'absent',
 		}
 
+		/*
 		file { "/data/home/$unix_username/$domain_name":
 			ensure => 'absent',
 		}
+		*/
 
 	}
 

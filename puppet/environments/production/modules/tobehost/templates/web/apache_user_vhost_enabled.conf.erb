@@ -13,6 +13,7 @@
 			SetHandler None
 		</FilesMatch>
 
+		<% if @tbh_web_php %>
 		# PHP wrapper settings
 		<FilesMatch "\.php[5]?$">
 			SetHandler fcgid-script
@@ -20,6 +21,7 @@
 		FCGIWrapper /var/www/fcgi-scripts/<%= @apache_suexec_user %>/php-fcgi-starter .php
 		FCGIWrapper /var/www/fcgi-scripts/<%= @apache_suexec_user %>/php-fcgi-starter .php5
 		Options +ExecCGI
+		<% end %>
 
 	</Directory>
 
@@ -76,6 +78,7 @@
 			SetHandler None
 		</FilesMatch>
 
+		<% if @tbh_web_php %>
 		# PHP wrapper settings
 		<FilesMatch "\.php[5]?$">
 			SetHandler fcgid-script
@@ -83,6 +86,7 @@
 		FCGIWrapper /var/www/fcgi-scripts/<%= @apache_suexec_user %>/php-fcgi-starter .php
 		FCGIWrapper /var/www/fcgi-scripts/<%= @apache_suexec_user %>/php-fcgi-starter .php5
 		Options +ExecCGI
+		<% end %>
 
 	</Directory>
 

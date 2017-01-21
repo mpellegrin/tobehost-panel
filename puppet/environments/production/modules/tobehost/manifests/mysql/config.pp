@@ -14,7 +14,7 @@ class tobehost::mysql::config inherits tobehost::mysql {
 		$mysql_password = $tbh_sql_password
 
                 exec {"mysql-create-${mysql_username}":
-                        command => "/usr/bin/mysql -B -u ${adm_login} --password='${adm_password}' -e \"CREATE USER '${mysql_username}'@'localhost' IDENTIFIED BY '${mysql_password}' ; CREATE DATABASE ${mysql_username} ; GRANT ALL PRIVILEGES ON \`${mysql_username}\`.* TO '${mysql_username}'@'localhost'",
+                        command => "/usr/bin/mysql -B -u ${mysql_admin_login} --password='${mysql_admin_password}' -e \"CREATE USER '${mysql_username}'@'localhost' IDENTIFIED BY '${mysql_password}' ; CREATE DATABASE ${mysql_username} ; GRANT ALL PRIVILEGES ON \`${mysql_username}\`.* TO '${mysql_username}'@'localhost'",
                         creates => "/var/lib/mysql/${mysql_username}",
                 }                                                                                                                                                                                                  
 	}
@@ -35,7 +35,7 @@ class tobehost::mysql::config inherits tobehost::mysql {
 		$mysql_password = $tbh_sql_password
 
 		exec {"mysql-delete-${mysql_username}":
-                        command => "/usr/bin/mysql -B -u ${adm_login} --password='${adm_password}' -e \"DROP USER '${mysql_username}'@'localhost' ; DROP DATABASE ${mysql_username} ; REVOKE ALL PRIVILEGES ON \`${mysql_username}\`.* TO '${mysql_username}'@'localhost'",
+                        command => "/usr/bin/mysql -B -u ${mysql_admin_login} --password='${mysql_admin_password}' -e \"DROP USER '${mysql_username}'@'localhost' ; DROP DATABASE ${mysql_username} ; REVOKE ALL PRIVILEGES ON \`${mysql_username}\`.* TO '${mysql_username}'@'localhost'",
                         onlyif => "/var/lib/mysql/${mysql_username}",
 		}
 
