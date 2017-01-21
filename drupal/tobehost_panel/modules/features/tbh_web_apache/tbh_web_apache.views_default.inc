@@ -242,12 +242,19 @@ function tbh_web_apache_views_default_views() {
   $handler->display->display_options['fields']['id']['label'] = '';
   $handler->display->display_options['fields']['id']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['id']['separator'] = '';
+  /* Field: TBH Services: Site ID */
+  $handler->display->display_options['fields']['field_tbh_web_id']['id'] = 'field_tbh_web_id';
+  $handler->display->display_options['fields']['field_tbh_web_id']['table'] = 'field_data_field_tbh_web_id';
+  $handler->display->display_options['fields']['field_tbh_web_id']['field'] = 'field_tbh_web_id';
+  $handler->display->display_options['fields']['field_tbh_web_id']['label'] = 'tbh_web_id';
+  $handler->display->display_options['fields']['field_tbh_web_id']['element_label_colon'] = FALSE;
   /* Field: TBH Services: Enable PHP */
   $handler->display->display_options['fields']['field_tbh_web_php']['id'] = 'field_tbh_web_php';
   $handler->display->display_options['fields']['field_tbh_web_php']['table'] = 'field_data_field_tbh_web_php';
   $handler->display->display_options['fields']['field_tbh_web_php']['field'] = 'field_tbh_web_php';
   $handler->display->display_options['fields']['field_tbh_web_php']['label'] = 'tbh_web_php';
   $handler->display->display_options['fields']['field_tbh_web_php']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_tbh_web_php']['type'] = 'list_key';
   /* Field: TBH Services: FTP password */
   $handler->display->display_options['fields']['field_tbh_web_password']['id'] = 'field_tbh_web_password';
   $handler->display->display_options['fields']['field_tbh_web_password']['table'] = 'field_data_field_tbh_web_password';

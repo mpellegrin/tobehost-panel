@@ -1,0 +1,29 @@
+#!/usr/bin/php
+<?php
+
+$drupal_root = '/usr/local/share/tobehost_panel/';
+
+if (file_exists($drupal_root)) {
+        chdir($drupal_root);
+} else {
+	echo 'Drupal root does not exists.';
+	return 1;
+}
+
+define('DRUPAL_ROOT', $drupal_root);                                                                                                                                                                               
+include_once 'includes/bootstrap.inc';
+drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+
+$view = 'tbh_puppet_sql';
+$items = views_json_get($view);
+foreach ($items->nodes as $item) {
+	$hiera_data = json_encode($item->node, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
+	file_put_contents('/etc/puppet/hieradata/production/sql-active/' . $item->node->id . '.json', $hiera_data);
+}
+
+$view = 'tbh_puppet_web';
+$items = views_json_get($view);
+foreach ($items->nodes as $item) {
+	$hiera_data = json_encode($item->node, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
+	file_put_contents('/etc/puppet/hieradata/production/web-active/' . $item->node->id . '.json', $hiera_data);
+}
