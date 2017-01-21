@@ -1,0 +1,11 @@
+---
+classes:
+  - tobehost::base
+  - tobehost::ftp
+  - tobehost::web
+  - tobehost::mysql
+
+hostname: _HOSTNAME_
+tobehost::mysql::mysql_admin_login: 'tbh_pp_admin'
+tobehost::mysql::mysql_admin_password: '_TBH_SQL_PASSWORD_'
+

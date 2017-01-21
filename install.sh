@@ -9,6 +9,10 @@ apt-get install puppet puppetmaster hiera
 # Prompts MySQL root password to user
 apt-get install mariadb-client mariadb-server
 
+# Generates and set MySQL Puppet admin password
+MYSQL_ADMIN_PASSWORD=`openssl rand -base64 32`
+mysql --defaults-extra-file=/etc/mysql/debian.cnf -B -e "CREATE USER 'tbh_pp_admin'@'localhost' IDENTIFIED BY '${MYSQL_ADMIN_PASSWORD}' ; GRANT ALL PRIVILEGES ON *.* TO 'tbh_pp_admin'@'localhost' WITH GRANT OPTION"
+
 # Drush
 wget https://s3.amazonaws.com/files.drush.org/drush.phar -O /usr/local/bin/drush
 chmod +x /usr/local/bin/drush
@@ -22,8 +26,9 @@ rsync -av --delete puppet/* /etc/puppet/
 chown -R root:puppet /etc/puppet/
 HOSTNAME=`hostname -f`
 sed -i "s/_HOSTNAME_/$HOSTNAME/" /etc/puppet/puppet.conf
-cp /etc/puppet/environments/production/manifests/site.pp.dist /etc/puppet/environments/production/manifests/site.pp
-sed -i "s/_HOSTNAME_/$HOSTNAME/" /etc/puppet/environments/production/manifests/site.pp
+cp /etc/puppet/hieradata/production/site.yaml.dist /etc/puppet/hieradata/production/${HOSTNAME}.yaml
+sed -i "s/_HOSTNAME_/$HOSTNAME/" /etc/puppet/hieradata/production/${HOSTNAME}.yaml
+sed -i "s/_TBH_SQL_PASSWORD_/$MYSQL_ADMIN_PASSWORD/" /etc/puppet/hieradata/production/${HOSTNAME}.yaml
 puppet agent --test
 
 # Permissions fix

@@ -1,11 +1,15 @@
 ---
 :backends:
+  - yaml
   - json
   - multijson
+:yaml:
+  :datadir: "/etc/puppet/hieradata"
 :json:
  :datadir: "/etc/puppet/hieradata"
 :multijson:
  :datadir: "/etc/puppet/hieradata"
 :hierarchy:
   - "%{::environment}"
+  - "%{::environment}/%{::fqdn}"
 
