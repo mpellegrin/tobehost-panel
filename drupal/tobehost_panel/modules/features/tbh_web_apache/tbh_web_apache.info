@@ -24,5 +24,6 @@ features[user_permission][] = eck delete tbh_services tbh_web_apache entities
 features[user_permission][] = eck edit tbh_services tbh_web_apache entities
 features[user_permission][] = eck list tbh_services tbh_web_apache entities
 features[user_permission][] = eck view tbh_services tbh_web_apache entities
+features[views_view][] = tbh_admin_web_apache_
 features[views_view][] = tbh_puppet_web
 project path = /usr/local/share/tobehost_panel/profiles/tobehost_panel/modules/features/

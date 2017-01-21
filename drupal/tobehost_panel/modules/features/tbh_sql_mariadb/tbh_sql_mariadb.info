@@ -22,5 +22,6 @@ features[user_permission][] = eck delete tbh_services tbh_sql_mariadb entities
 features[user_permission][] = eck edit tbh_services tbh_sql_mariadb entities
 features[user_permission][] = eck list tbh_services tbh_sql_mariadb entities
 features[user_permission][] = eck view tbh_services tbh_sql_mariadb entities
+features[views_view][] = tbh_admin_sql_mariadb
 features[views_view][] = tbh_puppet_sql
 project path = /usr/local/share/tobehost_panel/profiles/tobehost_panel/modules/features/

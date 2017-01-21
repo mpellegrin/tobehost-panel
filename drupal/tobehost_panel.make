@@ -50,5 +50,7 @@ projects:
     subdir: contrib
   views:
     subdir: contrib
+  views_bulk_operations:
+    subdir:contrib
   views_datasource:
     subdir: contrib
