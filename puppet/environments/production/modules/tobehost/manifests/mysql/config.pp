@@ -2,7 +2,7 @@ class tobehost::mysql::config inherits tobehost::mysql {
 
 	file { '/etc/mysql/my.cnf':
 		ensure  => 'file',
-		content => template('mysql/my.cnf.erb'),
+		content => template('tobehost/mysql/my.cnf.erb'),
 		group   => '0',
 		mode    => '644',
 		owner   => '0',
@@ -41,13 +41,13 @@ class tobehost::mysql::config inherits tobehost::mysql {
 
 	}
 
-	$mysql_active = hiera('active-mysql')
+	$mysql_active = hiera('sql-active')
 	create_resources(tobehost_mysql_enable, $mysql_active)
 
-	$mysql_disabled = hiera('disabled-mysql')
+	$mysql_disabled = hiera('sql-disabled')
 	create_resources(tobehost_mysql_disable, $mysql_disabled)
 
-	$mysql_deleted = hiera('deleted-mysql')
+	$mysql_deleted = hiera('sql-deleted')
 	create_resources(tobehost_mysql_delete, $mysql_deleted)
 
 }

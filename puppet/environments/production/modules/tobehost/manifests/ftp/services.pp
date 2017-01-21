@@ -8,12 +8,4 @@ class tobehost::ftp::services inherits tobehost::ftp {
 		require => Package['vsftpd'],
 	}
 
-	# OpenSSH (SFTP)
-	service { 'sftp':
-		ensure  => 'running',
-		enable  => 'true',
-		hasrestart => 'true',
-		require => Package['openssh-server'],
-	}
-
 }
