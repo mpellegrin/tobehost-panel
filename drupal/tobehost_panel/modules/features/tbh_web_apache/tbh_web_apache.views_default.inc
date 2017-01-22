@@ -150,10 +150,23 @@ function tbh_web_apache_views_default_views() {
   $handler->display->display_options['fields']['field_tbh_web_id']['id'] = 'field_tbh_web_id';
   $handler->display->display_options['fields']['field_tbh_web_id']['table'] = 'field_data_field_tbh_web_id';
   $handler->display->display_options['fields']['field_tbh_web_id']['field'] = 'field_tbh_web_id';
-  $handler->display->display_options['fields']['field_tbh_web_id']['label'] = 'Site Name';
-  $handler->display->display_options['fields']['field_tbh_web_id']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_tbh_web_id']['alter']['text'] = '[field_tbh_web_id].tobehost.net';
+  $handler->display->display_options['fields']['field_tbh_web_id']['label'] = '';
+  $handler->display->display_options['fields']['field_tbh_web_id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_tbh_web_id']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_1']['label'] = 'Site Name';
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[field_tbh_web_id].tobehost.net';
+  $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'FTP login';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[id]_[field_tbh_web_id]';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Field: TBH Services: Enable PHP */
   $handler->display->display_options['fields']['field_tbh_web_php']['id'] = 'field_tbh_web_php';
   $handler->display->display_options['fields']['field_tbh_web_php']['table'] = 'field_data_field_tbh_web_php';

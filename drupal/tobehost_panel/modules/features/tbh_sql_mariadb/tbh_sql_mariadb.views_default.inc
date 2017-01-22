@@ -156,6 +156,12 @@ function tbh_sql_mariadb_views_default_views() {
   $handler->display->display_options['fields']['field_tbh_sql_name']['alter']['max_length'] = '16';
   $handler->display->display_options['fields']['field_tbh_sql_name']['alter']['trim'] = TRUE;
   $handler->display->display_options['fields']['field_tbh_sql_name']['element_label_colon'] = FALSE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Database login';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_tbh_sql_name]';
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
