@@ -369,15 +369,15 @@ class tobehost::web::config inherits tobehost::web {
 		file { $domain_docroot:
 			ensure => 'directory',
 			owner  => 'root',
-			group  => 'www-data',
+			group  => $apache_suexec_group,
 			mode   => '550',
 		}
 
 		file { "/etc/apache2/sites-available/${domain_name}.conf":
 			ensure => 'file',
 			content => template('tobehost/web/apache_user_vhost_enabled.conf.erb'),
-			#require => User[$unix_username],
-			#require => [User[$unix_username], File["/data/web/${domain_name}"]],
+			#require => User[$apache_suexec_user],
+			#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
 			require => File["/data/web/${domain_name}"],
 			notify => Service['apache2'],
 		}
@@ -385,39 +385,39 @@ class tobehost::web::config inherits tobehost::web {
 		file { "/etc/apache2/sites-enabled/100-${domain_name}.conf":
 			ensure => 'link',
 			target => "../sites-available/${domain_name}.conf",
-			#require => User[$unix_username],
-			#require => [User[$unix_username], File["/data/web/${domain_name}"]],
+			#require => User[$apache_suexec_user],
+			#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
 			require => File["/data/web/${domain_name}"],
 			notify => Service['apache2'],
 		}
 
 		file { $apache_docroot:
 			ensure => 'directory',
-			owner => $unix_username,
-			group => $unix_username,
+			owner => $apache_suexec_user,
+			group => $apache_suexec_group,
 			mode => '750',
-			#require => User[$unix_username],
-			#require => [User[$unix_username], File["/data/web/${domain_name}"]],
+			#require => User[$apache_suexec_user],
+			#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
 			require => File["/data/web/${domain_name}"],
 		}
 
 		file { $apache_logdir:
 			ensure => 'directory',
-			owner => $unix_username,
-			group => $unix_username,
-			mode => '770',
-			#require => User[$unix_username],
-			#require => [User[$unix_username], File["/data/web/${domain_name}"]],
+			owner => 'root',
+			group => $apache_suexec_group,
+			mode => '750',
+			#require => User[$apache_suexec_user],
+			#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
 			require => File["/data/web/${domain_name}"],
 		}
 
 		file { $php_tmpdir:
 			ensure => 'directory',
-			owner => $unix_username,
-			group => $unix_username,
+			owner => $apache_suexec_user,
+			group => $apache_suexec_group,
 			mode => '750',
-			#require => User[$unix_username],
-			#require => [User[$unix_username], File["/data/web/${domain_name}"]],
+			#require => User[$apache_suexec_user],
+			#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
 			require => File["/data/web/${domain_name}"],
 		}
 
@@ -427,8 +427,8 @@ class tobehost::web::config inherits tobehost::web {
 				owner => $apache_suexec_user,
 				group => $apache_suexec_group,
 				mode => '550',
-				#require => User[$unix_username],
-				#require => [User[$unix_username], File["/data/web/${domain_name}"]],
+				#require => User[$apache_suexec_user],
+				#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
 				require => File["/data/web/${domain_name}"],
 			}
 
@@ -438,22 +438,22 @@ class tobehost::web::config inherits tobehost::web {
 				group => $apache_suexec_group,
 				mode => '550',
 				content => template('tobehost/web/php-fcgi-starter.erb'),
-				#require => User[$unix_username],
-				#require => [User[$unix_username], File["/data/web/${domain_name}"]],
+				#require => User[$apache_suexec_user],
+				#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
 				require => File["/data/web/${domain_name}"],
 			}
 		}
 
 		/*
-		file { "/data/home/$unix_username/$domain_name":
+		file { "/data/home/$apache_suexec_user/$domain_name":
 			ensure => 'link',
 			owner => 'root',
 			group => 'root',
 			mode => '550',
 			target => "/data/web/${domain_name}",
-			#require => User[$unix_username],
-			#require => [User[$unix_username], File["/data/web/${domain_name}"]],
-			require => [File["/data/home/${unix_username}"], File["/data/web/${domain_name}"]],
+			#require => User[$apache_suexec_user],
+			#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
+			require => [File["/data/home/${apache_suexec_user}"], File["/data/web/${domain_name}"]],
 		}
 		*/
 	}
@@ -478,39 +478,39 @@ class tobehost::web::config inherits tobehost::web {
 		file { "/etc/apache2/sites-available/${domain_name}.conf":
 			ensure => 'file',
 			content => template('tobehost/web/apache_user_vhost_disabled.conf.erb'),
-			require => User[$unix_username],
+			require => User[$apache_suexec_user],
 			notify => Service['apache2'],
 		}
 
 		file { "/etc/apache2/sites-enabled/100-${domain_name}.conf":
 			ensure => 'absent',
 			#target => "../sites-available/${domain_name}.conf",
-			#require => User[$unix_username],
+			#require => User[$apache_suexec_user],
 			notify => Service['apache2'],
 		}
 
 		file { $apache_docroot:
 			ensure => 'directory',
-			owner => $unix_username,
-			group => $unix_username,
+			owner => $apache_suexec_user,
+			group => $apache_suexec_group,
 			mode => '750',
-			require => User[$unix_username],
+			require => User[$apache_suexec_user],
 		}
 
 		file { $apache_logdir:
 			ensure => 'directory',
-			owner => $unix_username,
-			group => $unix_username,
+			owner => $apache_suexec_user,
+			group => $apache_suexec_group,
 			mode => '770',
-			require => User[$unix_username],
+			require => User[$apache_suexec_user],
 		}
 
 		file { $php_tmpdir:
 			ensure => 'directory',
-			owner => $unix_username,
-			group => $unix_username,
+			owner => $apache_suexec_user,
+			group => $apache_suexec_group,
 			mode => '750',
-			require => User[$unix_username],
+			require => User[$apache_suexec_user],
 		}
 
 		file { "/var/www/fcgi-scripts/$apache_suexec_user":
@@ -518,7 +518,7 @@ class tobehost::web::config inherits tobehost::web {
 			owner => $apache_suexec_user,
 			group => $apache_suexec_group,
 			mode => '550',
-			require => User[$unix_username],
+			require => User[$apache_suexec_user],
 		}
 
 		file { "/var/www/fcgi-scripts/$apache_suexec_user/php-fcgi-starter":
@@ -527,13 +527,13 @@ class tobehost::web::config inherits tobehost::web {
 			group => $apache_suexec_group,
 			mode => '550',
 			content => template('tobehost/web/php-fcgi-starter.erb'),
-			require => User[$unix_username],
+			require => User[$apache_suexec_user],
 		}
 
 		/*
-		file { "/data/home/$unix_username/$domain_name":
+		file { "/data/home/$apache_suexec_user/$domain_name":
 			ensure => 'absent',
-			require => [File["/data/home/${unix_username}"], File["/data/web/${domain_name}"]],
+			require => [File["/data/home/${apache_suexec_user}"], File["/data/web/${domain_name}"]],
 		}
 		*/
 	}
@@ -583,7 +583,7 @@ class tobehost::web::config inherits tobehost::web {
 		}
 
 		/*
-		file { "/data/home/$unix_username/$domain_name":
+		file { "/data/home/$apache_suexec_user/$domain_name":
 			ensure => 'absent',
 		}
 		*/

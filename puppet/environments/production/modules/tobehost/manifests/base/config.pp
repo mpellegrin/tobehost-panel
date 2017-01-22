@@ -1,5 +1,6 @@
 class tobehost::base::config inherits tobehost::base {
 
+	/*
 	file { '/etc/hostname':
 		ensure  => 'file',
 		content => $hostname,
@@ -7,6 +8,7 @@ class tobehost::base::config inherits tobehost::base {
 		mode    => '644',
 		owner   => '0',
 	}
+	*/
 
 	file {'/etc/cron.d/tobehost_panel':
 		ensure  => 'file',
