@@ -346,6 +346,13 @@ class tobehost::web::config inherits tobehost::web {
 		require => User['tobehost_panel'],
 	}
 
+	file {'/data/web':
+		ensure => 'directory',
+		owner  => 'root',
+		group  => 'root',
+		mode   => '755',
+	}
+
 	/* ---- */
 
 	define tobehost_apache_enable($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {

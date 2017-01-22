@@ -1,6 +1,8 @@
 #!/usr/bin/php
 <?php
 
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE);
+
 $drupal_root = '/usr/local/share/tobehost_panel/';
 
 if (file_exists($drupal_root)) {

@@ -1,4 +1,6 @@
 class tobehost::mysql (
+	$mysql_admin_login = '',
+	$mysql_admin_password = '',
 
 ) inherits tobehost {
 

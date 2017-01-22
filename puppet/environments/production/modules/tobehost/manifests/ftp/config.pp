@@ -20,10 +20,9 @@ class tobehost::ftp::config inherits tobehost::ftp {
 		user { $ftp_user:
 			ensure => 'present',
 			password => $ftp_password,
-			gid    => $ftp_group,
 			home   => $ftp_docroot,
 			managehome => false,
-			shell      => '/dev/null',
+			shell      => '/bin/false',
 		}
 
 	}
@@ -39,10 +38,9 @@ class tobehost::ftp::config inherits tobehost::ftp {
 		user { $ftp_user:
 			ensure => 'present',
 			password => '!',
-			gid    => $ftp_group,
 			home   => $ftp_docroot,
 			managehome => false,
-			shell      => '/dev/null',
+			shell      => '/bin/false',
 		}
 
 	}
