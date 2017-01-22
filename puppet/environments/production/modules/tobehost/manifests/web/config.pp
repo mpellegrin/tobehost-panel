@@ -357,7 +357,7 @@ class tobehost::web::config inherits tobehost::web {
 
 	define tobehost_apache_enable($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
 
-		$domain_name = "${tbh_web_id}.${hostname}"
+		$domain_name = "${tbh_web_id}.${tobehost::hosting_domain}"
 		$domain_docroot = "/data/web/${domain_name}"
 		$apache_docroot = "/data/web/${domain_name}/www"
 		$apache_logdir = "/data/web/${domain_name}/logs"
@@ -421,7 +421,7 @@ class tobehost::web::config inherits tobehost::web {
 			require => File["/data/web/${domain_name}"],
 		}
 
-		if ($tbh_web_php) {
+		if ($tbh_web_php == '1') {
 			file { "/var/www/fcgi-scripts/$apache_suexec_user":
 				ensure => 'directory',
 				owner => $apache_suexec_user,
@@ -442,6 +442,13 @@ class tobehost::web::config inherits tobehost::web {
 				#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
 				require => File["/data/web/${domain_name}"],
 			}
+		} else {
+			file { "/var/www/fcgi-scripts/$apache_suexec_user":
+				ensure  => 'absent',
+			}
+			file { "/var/www/fcgi-scripts/$apache_suexec_user/php-fcgi-starter":
+				ensure => 'absent',
+			}
 		}
 
 		/*
@@ -456,11 +463,17 @@ class tobehost::web::config inherits tobehost::web {
 			require => [File["/data/home/${apache_suexec_user}"], File["/data/web/${domain_name}"]],
 		}
 		*/
+
+                exec {"/usr/sbin/usermod -aG ${apache_suexec_user} www-data":
+                        unless => "/bin/grep -q '${apache_suexec_user}\\S*www-data\\S*' /etc/group",
+                        #require => User[$apache_suexec_user],
+                }
+
 	}
 
 	define tobehost_apache_disable($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
 
-		$domain_name = "${tbh_web_id}.${hostname}"
+		$domain_name = "${tbh_web_id}.${tobehost::hosting_domain}"
 		$apache_docroot = "/data/web/${domain_name}/www"
 		$apache_logdir = "/data/web/${domain_name}/logs"
 		$php_tmpdir = "/data/web/${domain_name}/tmp"
@@ -513,21 +526,34 @@ class tobehost::web::config inherits tobehost::web {
 			require => User[$apache_suexec_user],
 		}
 
-		file { "/var/www/fcgi-scripts/$apache_suexec_user":
-			ensure => 'directory',
-			owner => $apache_suexec_user,
-			group => $apache_suexec_group,
-			mode => '550',
-			require => User[$apache_suexec_user],
-		}
+		if ($tbh_web_php == '1') {
+			file { "/var/www/fcgi-scripts/$apache_suexec_user":
+				ensure => 'directory',
+				owner => $apache_suexec_user,
+				group => $apache_suexec_group,
+				mode => '550',
+				#require => User[$apache_suexec_user],
+				#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
+				require => File["/data/web/${domain_name}"],
+			}
 
-		file { "/var/www/fcgi-scripts/$apache_suexec_user/php-fcgi-starter":
-			ensure => 'file',
-			owner => $apache_suexec_user,
-			group => $apache_suexec_group,
-			mode => '550',
-			content => template('tobehost/web/php-fcgi-starter.erb'),
-			require => User[$apache_suexec_user],
+			file { "/var/www/fcgi-scripts/$apache_suexec_user/php-fcgi-starter":
+				ensure => 'file',
+				owner => $apache_suexec_user,
+				group => $apache_suexec_group,
+				mode => '550',
+				content => template('tobehost/web/php-fcgi-starter.erb'),
+				#require => User[$apache_suexec_user],
+				#require => [User[$apache_suexec_user], File["/data/web/${domain_name}"]],
+				require => File["/data/web/${domain_name}"],
+			}
+		} else {
+			file { "/var/www/fcgi-scripts/$apache_suexec_user":
+				ensure  => 'absent',
+			}
+			file { "/var/www/fcgi-scripts/$apache_suexec_user/php-fcgi-starter":
+				ensure => 'absent',
+			}
 		}
 
 		/*
@@ -540,7 +566,7 @@ class tobehost::web::config inherits tobehost::web {
 
 	define tobehost_apache_delete($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
 
-		$domain_name = "${tbh_web_id}.${hostname}"
+		$domain_name = "${tbh_web_id}.${tobehost::hosting_domain}"
 		$apache_docroot = "/data/web/${domain_name}/www"
 		$apache_logdir = "/data/web/${domain_name}/logs"
 		$php_tmpdir = "/data/web/${domain_name}/tmp"

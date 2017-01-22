@@ -13,7 +13,7 @@
 			SetHandler None
 		</FilesMatch>
 
-		<% if @tbh_web_php %>
+		<% if @tbh_web_php == '1' %>
 		# PHP wrapper settings
 		<FilesMatch "\.php[5]?$">
 			SetHandler fcgid-script
@@ -78,7 +78,7 @@
 			SetHandler None
 		</FilesMatch>
 
-		<% if @tbh_web_php %>
+		<% if @tbh_web_php == '1'%>
 		# PHP wrapper settings
 		<FilesMatch "\.php[5]?$">
 			SetHandler fcgid-script

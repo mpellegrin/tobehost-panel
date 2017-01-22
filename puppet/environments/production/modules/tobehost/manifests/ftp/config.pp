@@ -48,7 +48,7 @@ class tobehost::ftp::config inherits tobehost::ftp {
 
 	define tobehost_ftp_enable($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
 
-		$domain_name = "${tbh_web_id}.${hostname}"
+		$domain_name = "${tbh_web_id}.${tobehost::hosting_domain}"
 		$ftp_docroot = "/data/web/${domain_name}"
 		$ftp_user = "${entity_id}_${tbh_web_id}"
 		$ftp_group = "${entity_id}_${tbh_web_id}"
@@ -66,7 +66,7 @@ class tobehost::ftp::config inherits tobehost::ftp {
 
 	define tobehost_ftp_disable($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
 
-		$domain_name = "${tbh_web_id}.${hostname}"
+		$domain_name = "${tbh_web_id}.${tobehost::hosting_domain}"
 		$ftp_docroot = "/data/web/${domain_name}"
 		$ftp_user = "${entity_id}_${tbh_web_id}"
 		$ftp_group = "${entity_id}_${tbh_web_id}"
@@ -84,7 +84,7 @@ class tobehost::ftp::config inherits tobehost::ftp {
 
 	define tobehost_ftp_delete($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
 
-		$domain_name = "${tbh_web_id}.${hostname}"
+		$domain_name = "${tbh_web_id}.${tobehost::hosting_domain}"
 		$ftp_docroot = "/data/web/${domain_name}"
 		$ftp_user = "${entity_id}_${tbh_web_id}"
 		$ftp_group = "${entity_id}_${tbh_web_id}"
