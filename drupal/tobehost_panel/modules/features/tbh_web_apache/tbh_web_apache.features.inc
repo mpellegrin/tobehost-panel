@@ -30,7 +30,13 @@ function tbh_web_apache_eck_bundle_info() {
       'entity_type' => 'tbh_services',
       'name' => 'tbh_web_apache',
       'label' => 'Web (Apache)',
-      'config' => array(),
+      'config' => array(
+        'managed_properties' => array(
+          'uid' => 0,
+          'created' => 0,
+          'changed' => 0,
+        ),
+      ),
     ),
   );
   return $items;

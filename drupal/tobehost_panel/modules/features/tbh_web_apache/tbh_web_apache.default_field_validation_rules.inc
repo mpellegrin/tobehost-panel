@@ -21,7 +21,7 @@ function tbh_web_apache_default_field_validation_rule() {
   $rule->bundle = 'tbh_web_apache';
   $rule->validator = 'field_validation_regex_validator';
   $rule->settings = array(
-    'data' => '^[a-z0-9]+$',
+    'data' => '^[a-z0-9_-]+$',
     'bypass' => 0,
     'roles' => array(
       1 => 0,
@@ -51,7 +51,7 @@ function tbh_web_apache_default_field_validation_rule() {
   $rule->bundle = 'tbh_web_apache';
   $rule->validator = 'field_validation_regex_validator';
   $rule->settings = array(
-    'data' => '^[a-zA-Z0-9]+$',
+    'data' => '^[a-zA-Z0-9-_]+$',
     'bypass' => 0,
     'roles' => array(
       1 => 0,
