@@ -114,8 +114,20 @@ class tobehost::web::config inherits tobehost::web {
 		replace => 'no',
 		notify => Service['apache2'],
 	}
-
 	file {'/etc/ssl/private/tobehost_panel.key':
+		ensure => 'link',
+		target => '/etc/ssl/private/ssl-cert-snakeoil.key',
+		replace => 'no',
+		notify => Service['apache2'],
+	}
+
+	file {'/etc/ssl/certs/tobehost_pma.pem':
+		ensure => 'link',
+		target => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
+		replace => 'no',
+		notify => Service['apache2'],
+	}
+	file {'/etc/ssl/private/tobehost_pma.key':
 		ensure => 'link',
 		target => '/etc/ssl/private/ssl-cert-snakeoil.key',
 		replace => 'no',
