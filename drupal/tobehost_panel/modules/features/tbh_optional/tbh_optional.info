@@ -1,7 +1,7 @@
 name = TBH Optional
 description = A set of optional views and features
 core = 7.x
-package = Features
+package = TBH
 dependencies[] = views
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
