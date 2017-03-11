@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the TBH Optional feature.
+ */
+
+include_once 'tbh_optional.features.inc';
