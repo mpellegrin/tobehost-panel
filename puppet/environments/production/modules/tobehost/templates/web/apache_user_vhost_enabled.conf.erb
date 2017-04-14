@@ -61,11 +61,8 @@
 	# SSL Configuration
 	SSLEngine On
 	SSLProtocol All -SSLv2 -SSLv3
-	SSLCertificateFile	/etc/ssl/certs/ssl-cert-snakeoil.pem
-	SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-	#SSLCertificateFile /etc/ssl/tobehost/tobehost.crt
-	#SSLCertificateKeyFile /etc/ssl/tobehost/tobehost.key
-	#SSLCACertificateFile /etc/ssl/tobehost/tobehost.ca-bundle
+	SSLCertificateFile    <%= @apache_ssl_certfile %>
+	SSLCertificateKeyFile <%= @apache_ssl_keyfile %>
 
 	DocumentRoot <%= @apache_docroot %>
 	<Directory <%= @apache_docroot %>>

@@ -64,6 +64,15 @@ class tobehost::web::install inherits tobehost::web {
 		ensure => 'present',
 	}
 
+	# Letsencrypt
+	file {'/etc/apt/sources.list.d/backports.list':
+		ensure => 'file',
+		content => 'deb http://ftp.debian.org/debian jessie-backports main',
+	}
+	package {'python-certbot':
+		ensure => 'present',
+		require => File['/etc/apt/sources.list.d/backports.list'],
+	}
 
 	# Panel
 	user { 'tobehost_panel':

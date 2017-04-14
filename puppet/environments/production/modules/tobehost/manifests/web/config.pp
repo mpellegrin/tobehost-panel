@@ -392,6 +392,14 @@ class tobehost::web::config inherits tobehost::web {
 		$apache_suexec_user = "${entity_id}_${tbh_web_id}"
 		$apache_suexec_group = "${entity_id}_${tbh_web_id}"
 
+		if (file_exists("/etc/letsencrypt/live/$domain_name/privkey.pem") and file_exists("/etc/letsencrypt/live/$domain_name/cert.pem")) {
+			$apache_ssl_keyfile = "/etc/letsencrypt/live/$domain_name/privkey.pem"
+			$apache_ssl_certfile = "/etc/letsencrypt/live/$domain_name/cert.pem"
+		} else {
+			$apache_ssl_keyfile = "/etc/ssl/private/ssl-cert-snakeoil.key"
+			$apache_ssl_certfile = "/etc/ssl/certs/ssl-cert-snakeoil.pem"
+		}
+
 		file { $domain_docroot:
 			ensure => 'directory',
 			owner  => 'root',
@@ -495,6 +503,11 @@ class tobehost::web::config inherits tobehost::web {
                         #require => User[$apache_suexec_user],
                 }
 
+		# Letsencrypt
+		exec {"/usr/bin/certbot certonly -n --apache --agree-tos -m 'postmaster@$domain_name' -d '$domain_name'":
+			creates => "/etc/letsencrypt/live/$domain_name",
+		}
+
 	}
 
 	define tobehost_apache_disable($entity_id, $tbh_web_id, $tbh_web_php, $tbh_ftp_password) {
@@ -506,6 +519,14 @@ class tobehost::web::config inherits tobehost::web {
 		$apache_domain = $domain_name
 		$apache_suexec_user = "${entity_id}_${tbh_web_id}"
 		$apache_suexec_group = "${entity_id}_${tbh_web_id}"
+
+		if (file_exists("/etc/letsencrypt/live/$domain_name/privkey.pem") and file_exists("/etc/letsencrypt/live/$domain_name/cert.pem")) {
+			$apache_ssl_keyfile = "/etc/letsencrypt/live/$domain_name/privkey.pem"
+			$apache_ssl_certfile = "/etc/letsencrypt/live/$domain_name/cert.pem"
+		} else {
+			$apache_ssl_keyfile = "/etc/ssl/private/ssl-cert-snakeoil.key"
+			$apache_ssl_certfile = "/etc/ssl/certs/ssl-cert-snakeoil.pem"
+		}
 
 		file { $domain_docroot:
 			ensure => 'directory',
